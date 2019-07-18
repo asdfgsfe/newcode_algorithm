@@ -42,9 +42,11 @@ void dfsFind(Node *node, int dep, int counter[]) {
 	{
 		return;
 	}
-    counter[dep] += node->scons.size(); //也可以counter[dep++]++;类似于map记录每一层的节点
+    //counter[dep] += node->scons.size(); fix这个地方不能这样 因为一个节点会回到多次 也就会多加几次 错误 
+	//也可以counter[dep++]++;类似于map记录每一层的节点
+	counter[dep]++
     for(int i = 0; i < node->sons.size(); i++) {
-        dfsFind(node->sons[i], dep + 1, counter);
+        dfsFind(node->sons[i], dep + 1, counter); //如果用了counter[dep++]++ 这个地方就不能dep + 1
     }
 }
 

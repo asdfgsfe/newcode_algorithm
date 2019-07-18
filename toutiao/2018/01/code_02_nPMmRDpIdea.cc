@@ -15,7 +15,7 @@ int proid = 1;
 struct Programer
 {
     Programer()
-        : t(0), id(proid++)
+        : t(0), id(proid++) //这玩意没啥用
     {
     }
     int t;//当前的时间
@@ -24,11 +24,13 @@ struct Programer
     {
         vector<Task>::iterator findT;
         int index = -1;
+		//p*k(最长的项目个数)
         for (size_t i = 0; i < pmtasks.size(); i++)
         {
             auto& tasks = pmtasks[i];
             if (tasks.empty()) continue;
             auto it = tasks.begin();
+			//选出最想做的事情 选出每个pm耗时最小 且pmid最小的 做
             while (it!= tasks.end() && it->time > t)
                 it++;
             if (it == tasks.end()) continue;
@@ -51,7 +53,8 @@ struct Programer
         return 0;
     }
     
-    static void PercDown(vector<Programer>& rds, int i, int n)
+	//按照id的当前时间建立堆 就可以让rd自己去拿项目zuo
+    static void PercDown(vector<Programer>& rds, int i, int n) 
 	{
 		int child = 2 * i + 1;
 		while (child < n)
@@ -110,8 +113,9 @@ int main()
 	}
     while (p > 0)
     {
-        //这个地方可以用堆 log(m)
-        p -= pros.begin()->doTask(pmtasks, result);
+		//堆操作没啥用
+        p -= pros.begin()->doTask(pmtasks, result); 
+		//只对rd的时间采用堆 log(m)
         Programer::PercDown(pros, 0, pros.size());
     }
     for (auto &it : result)

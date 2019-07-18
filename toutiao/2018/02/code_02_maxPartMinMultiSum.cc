@@ -36,7 +36,7 @@ int MaxPartMinMultiSum2(const vector<int>& numbers)
 	}
 	vector<int> sums(numbers.size());
 	sums[0] = numbers[0];
-	for (int i = 1; i < numbers.size(); ++i)
+	for (int i = 1; i < numbers.size(); ++i) //这个地方还可以优化掉
 	{
 		sums[i] = sums[i - 1] + numbers[i];
 	}
@@ -44,6 +44,34 @@ int MaxPartMinMultiSum2(const vector<int>& numbers)
 	int maxVal = 0x80000000;
 	for (int i = 0; i < numbers.size(); ++i)
 	{
+		while (!incrIndexs.empty() && numbers[i] <= numbers[incrIndexs.top()])
+		{
+			int curNum = numbers[incrIndexs.top()];
+			incrIndexs.pop();
+			int curSum = incrIndexs.empty() ? sums[i - 1] : sums[i - 1] - sums[incrIndexs.top()];
+			maxVal = std::max(maxVal, curSum * curNum);
+		}
+		incrIndexs.push(i);
+
+	}
+	return maxVal;
+}
+
+//将域处理数组部分 降到计算单调栈里面
+//这种边遍历 边求结果的方法很好
+int MaxPartMinMultiSum2(const vector<int>& numbers)
+{
+	if (numbers.empty())
+	{
+		return 0;
+	}
+	vector<int> sums(numbers.size());
+	sums[0] = numbers[0];
+	stack<int> incrIndexs;
+	int maxVal = 0x80000000;
+	for (int i = 0; i < numbers.size(); ++i)
+	{
+		sums[i] = i > 0 ? sums[i - 1] + nums[i] : sums[i];
 		while (!incrIndexs.empty() && numbers[i] <= numbers[incrIndexs.top()])
 		{
 			int curNum = numbers[incrIndexs.top()];

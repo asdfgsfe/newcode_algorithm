@@ -31,7 +31,7 @@ vector<Point> Parse(void)
 }
 
 //o(n*log(n)) 只能过百分之80-90 是因为用了流
-void MaxPoints(void)
+void (void)
 {
 	vector<Point> points = Parse();
     std::sort(points.begin(), points.end(), 
@@ -42,18 +42,18 @@ void MaxPoints(void)
               }
              );
 	std::cout << points.back().x << " " << points.back().y << std::endl;
-	int maxX = points.back().x;
+	int startX = points.back().x;
 	for (int i = points.size() - 2; i >= 0; --i)
 	{
-		if (points[i].x > maxX)
+		if (points[i].x > startX)
 		{
 			std::cout << points[i].x << " " << points[i].y << std::endl;
-			maxX = points[i].x;
+			startX = points[i].x;
 		}
 	}
 } 
 
-//堆操作 o(n) 但是vector内存有动态变化的代价
+//堆操作 也是o(n*log(n)) 但是vector内存有动态变化的代价
 void MaxPoints(void)
 {
     int len = 0;
@@ -85,6 +85,7 @@ void MaxPoints(void)
     }
 }
 
+//1.还有种o(n*n)的思想 就是以为个位置遍历去选择是否满足条件
 int main(void)
 {
 	MaxPoints();
