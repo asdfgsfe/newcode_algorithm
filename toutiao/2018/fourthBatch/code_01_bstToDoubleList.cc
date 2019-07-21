@@ -14,18 +14,22 @@ TreeNode* Convert(TreeNode* root)
         }
         root =s.top();  
         s.pop();
-        if (listHead == NULL)
+        if (!listHead)
         {
             listHead = root;
         }
-        else
-        {
-            root->left = listLastNode; //
-            assert(listLastNode);
-            listLastNode->right = root;
-        }
+		if (listLastNod)
+		{
+			listLastNode->right = root
+		}
+        root->left = listLastNode; //
         listLastNode = root;
         root = root->right;
     }
     return listHead;
 }
+
+//转换的3中方法
+//1.左神 左边怎么样 右边怎么样 然后让最后一个节点只想头节点
+//2.递归的中序遍历
+//3.非递归的中序遍历

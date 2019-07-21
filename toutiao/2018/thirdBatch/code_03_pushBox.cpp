@@ -24,6 +24,7 @@ bool valid(int x, int y)
 	return true;
 }
  
+ //bfs的过程中一定是最短路径？所以不用在比较选择最短路径
 int bfs(int start_x, int start_y, int box_x, int box_y)
 {
 	queue<Node> que;
@@ -37,18 +38,18 @@ int bfs(int start_x, int start_y, int box_x, int box_y)
 		int step = node.step;
 		for (int i = 0; i < 4; ++i) {
 			int x = node.x + direc[i].first;
-			int y = node.y + direc[i].second;
+			int y = node.y + direc[i].second; //下人走的位置
 			// 箱子被同方向推动的位置
 			int next_x = bx + direc[i].first;
-			int next_y = by + direc[i].second;
+			int next_y = by + direc[i].second;//下次箱子走的位置
  
-			if (!valid(x, y)) continue;
-			// 走到箱子旁边
+			if (!valid(x, y)) continue;//人不可达的地方
+			// 走到箱子旁边 人可以继续走 人还未到达箱子的地方
 			if ((x != bx || y != by) && visited[x][y][bx][by] == 0) {  //没有到达箱子的位置
 				visited[x][y][bx][by] = 1;
 				que.push(Node(x, y, bx, by, step + 1));
 				// 推箱子
-			}
+			} //人已经到达箱子的地方 同箱子一起走
 			else if (x == bx && y == by && valid(next_x, next_y) && visited[x][y][next_x][next_y] == 0) {
 				visited[x][y][next_x][next_y] = 1;
 				if (path[next_x][next_y] == 'E')
@@ -61,6 +62,7 @@ int bfs(int start_x, int start_y, int box_x, int box_y)
 	return -1;
 }
  
+ //最短路径一般用bfs 深度之类的一般用dfs
 int main()
 {
 	memset(visited, 0, sizeof(visited));

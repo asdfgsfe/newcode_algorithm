@@ -75,6 +75,9 @@ int PushPackage(vector<string>& mapping)
 	return so != 0x7fffffff ? so: -1;
 }
 
+//错误的递归 留下做个纪念
+//错误的地方在于 人和箱子不能单独分开走 因为人一个走的时候有可能会走到E位置 这种情况不算
+//人必须先到0位置在同箱子一起 走到e位置才算
 int main(void)
 {
 	int n;
