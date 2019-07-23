@@ -73,7 +73,7 @@ public:
 			int path = (num >> move) & 1;
 			if (!cur->nexts[path])
 			{
-				cur->nexts[path] = new Node();
+				cur->nexts[path] = new Node;
 			}
 			cur = cur->nexts[path];
             ++cur->path;
@@ -87,10 +87,13 @@ public:
             return 0;
         }
         Node* cur = node;
-		for (int move = index; move >= 0; --move)
+		//for的目的主要是遍历当前节点相等是 在这个位相等时 继续下面的位置
+		for (int move = index; move >= 0; --move) 
 		{
 			int path = (num >> move) & 1;
 			int mPath = (m >> move) & 1;
+			//如果两者当前位均为1 要想异或和在当前位大于m 只能去异或0 
+			//异或完0后 二者当前位相等 若要找到大于m的 就得继续向下走 看其他位
 			if (path == 1 && mPath == 1)
 			{
 				if (!cur->nexts[0])
@@ -99,12 +102,18 @@ public:
 				}
 				cur = cur->nexts[0];
 			}
+			//我大与你 那我有2中选择 
+			//1.我选择与0异或 依旧是大于你的 此时节点数直接可以算出 就是经过cur->nexts[0]的路径数量
+			//2.我也可以选和1异或 等于你 递归的去拿到在这个节点 这个位置后面大于的数量
+			//二者的和就是答案
 			else if (path == 1 && mPath == 0)
 			{
 				long cnt = EorMoreMCnt(cur->nexts[1], num, m, move - 1);
 				return cur->nexts[0] ? cur->nexts[0]->path + cnt : cnt;
 			}
-			else if (path == 0 && mPath == 1)
+			//如果我在当前为小于你 而结果是我想拿到大于你的个数 我只能选择1异或 让我和你相等
+			//然后继续寻找下面位看能否大于你
+			else if (path == 0 && mPath == 1) 
 			{
 				if (!cur->nexts[1])
 				{
@@ -112,7 +121,7 @@ public:
 				}
 				cur = cur->nexts[1];
 			}
-			else//path == 0 mPath == 0
+			else//path == 0 mPath == 0 //相等同理与我大与你的情况
 			{
 				long long cnt = EorMoreMCnt(cur->nexts[0], num, m, move - 1);
 				return cur->nexts[1] ? cur->nexts[1]->path + cnt : cnt;
