@@ -38,7 +38,7 @@ RA
 
 int ComputeWeight(const vector<string>& strs, int k)
 {
-    int kWeightCnt = 1;
+    int weight = 1;
     string base;
 	for (const auto& str : strs)
 	{
@@ -47,16 +47,20 @@ int ComputeWeight(const vector<string>& strs, int k)
     string tmp = base + base;
     for (int i = 1; i < base.size(); ++i)
     {
-        if (base[0] == base[i])
+		//貌似有优化的一句话 因为移完后 旧串从base[0]开始 新串从base[i]开始 
+		//判断第一个相等 感觉没啥必要 因为字符串比较就是一个U一个比 可能有strsub的优化
+        if (base[0] == base[i]) 
         {
             //substr的时间复杂度是线性的 掌握这种循环去判断字符串移位的方法
-			kWeightCnt += (base == tmp.substr(i, base.size())) ? 1 : 0;
+			weight += (base == tmp.substr(i, base.size())) ? 1 : 0;
         }
     }
-  return kWeightCnt == k ? 1 : 0;
+  return weight == k ? 1 : 0;
 }
 
 
+//在生成数组全排列的过程 计算全中等于k的
+//可以用域处理数组的思想把 算全排列与计算权重分开
 int KWeightCnt(vector<string>& strs, int i, int k)
 {
 	if (i == strs.size())

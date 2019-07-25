@@ -36,6 +36,7 @@ BCA
 //生成0~9的全排列 就是字符映射成数值的所有情况
 //在所有全排列中排除首字母为0的 然后去计算每种情况下的累加和 选出最大的
 //超时 这种思想只能过百分之30
+//可以考虑在这个地方 直接去掉首字母位0的操作
 long long ComputeMappingSum(const vector<int>& digits, const vector<string>& strs)
 {
 	//abcdefghij ~ digitsIdx(0 ~ 9)
@@ -77,11 +78,12 @@ long long MappingProcess(vector<int>& digits, int i, const vector<string>& strs)
 	{
 		std::swap(digits[s], digits[i]);
 		maxSum = std::max(maxSum, MappingProcess(digits, i + 1, strs));
-    std::swap(digits[s], digits[i]);
+		std::swap(digits[s], digits[i]);
 	}
 	return maxSum;
 }
 
+//让字符串固定 全排列数字
 long long MaxMapping(const vector<string>& strs)
 {
 	vector<int> digits(10);

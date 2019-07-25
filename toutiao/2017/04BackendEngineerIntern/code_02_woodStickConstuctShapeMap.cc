@@ -54,7 +54,8 @@ No
 //从三角形来说 两边之和必须大于第三边才能组成三角形
 void IsSimpleShape(const vector<vector<long>>& ops)
 {
-    map<long, long> stickToTimes;
+    //这个地方可以用map multiset 但是不能用 堆操作没法删除指定的元素
+	map<long, long> stickToTimes;
 	long edgeSum = 0;
     int cnt = 0;    //stickToTimes会将相同长度叠加 所以用cnt统计集合中现在有多少木棍
 	for (const auto& op : ops)

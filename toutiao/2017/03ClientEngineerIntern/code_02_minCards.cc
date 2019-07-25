@@ -32,7 +32,7 @@ int MinCards(int n, int s, int l)
 {
 	int num = l / s;
     int rest = l % s;
-	int rN = s * num + num - 1 - rest;
+	int rN = s * num + num - 1 - rest; //我还需要这么多时间存储
 	while (rN >= l || num % 13 == 0) //rN >= l也没有错 就相当于在第一个片中少存了
 	{
 		--num;

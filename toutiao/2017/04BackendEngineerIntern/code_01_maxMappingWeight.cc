@@ -51,6 +51,7 @@ long long MaxMapping(const vector<string>& strs)
     //找到不是首字母且权重最小的那个char删除 因为他的会被0替换 不影响大局
     //然后从9~0对剩下的字符映射
     int zeroIdx = charToWeights.size() - 1;
+	//向前遍历找到一个不是首字母的 就是权重最小的
     while (zeroIdx >= 0 && visited.size() == 10 && heads[charToWeights[zeroIdx].first - 'A'])
     {
         --zeroIdx;
