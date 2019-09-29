@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <vector>
 using std::vector;
- 
+
+//n*log(n)
 long long PlanNums(const vector<long>& buildings, long d)
 {
     if (buildings.size() < 3 || d < 1)
@@ -15,7 +16,7 @@ long long PlanNums(const vector<long>& buildings, long d)
         long r = buildings.size() - 1;
         long target = -1;
 		//当前位置i 距离i+d是我最远能到达的距离 由于是排序的找到第一个大于i+d距离的位置
-		//以每个位置开头 找到能选择的组合
+		//以每个位置开头 找到能选择的组合 由于必须以每个位置开头 所以不用去重复
         while (l <= r)
         {
             long m = (r + l) / 2;

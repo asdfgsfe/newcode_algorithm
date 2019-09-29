@@ -25,18 +25,18 @@ void LoggestContinuousFrame(const map<pair<int, int>, set<int>>& frames)
 			    cnt = 1;
 		    }
             else
-          {
-            ++cnt;
-          }
-          ++pre;
-          ++level;
+			{
+				++cnt;
+			}
+			++pre;
+			++level;
 		}
         longgest = std::max(longgest, cnt);
 	}
 	printf("%d\n", longgest);
 }
 
-
+//对于查找类的题目 如果遍历的时间复杂度降不下去 就要考虑hash表查找
 int main(void)
 {
 	int n;
@@ -45,7 +45,9 @@ int main(void)
 	{
 		int m;
 		scanf("%d", &m);
-        map<pair<int, int>, set<int>> frames; //key==每个点 独一无二的 val==每个点所在的层
+		//key==每个点 独一无二的 val==每个点所在的层 
+		//key表示一个特征 val表示这个特征出现在了那些层
+        map<pair<int, int>, set<int>> frames;
 		for (int j = 0; j < m; ++j)
 		{
 			int k;
@@ -56,7 +58,7 @@ int main(void)
 				int y;
 				scanf("%d%d", &x, &y);
                 frames[std::make_pair(x, y)].insert(j);
-          }
+			}
 		}
         LoggestContinuousFrame(frames);
 	}

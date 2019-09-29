@@ -33,13 +33,15 @@ bool EqualProcess(vector<int>& cards)
 	{
 		return true;
 	}
-	//统计相同数字的数量
+	//统计第一个数字的数量
 	int curNum = 0;
 	for (int j = 0; j < cards.size() && cards[j] == cards[0]; ++j)
 	{
 		++curNum;
 	}
 	//没出现过雀头，且第一个数字出现的次数 >= 2,去掉雀头剩下的能不能和牌
+	//去掉的意思就是 让第一个数字作为雀头 看余下的数字能不能搞定
+	//其实就是每次尝试让第一个数字为雀头的 尝试方法
 	if (cards.size() % 3 != 0 &&  curNum >= 2)
 	{
 		vector<int> tmp(cards.begin() + 2, cards.end()); //会core 可能是不够三个数字了
@@ -49,6 +51,8 @@ bool EqualProcess(vector<int>& cards)
 		}
 	}
 	//如果第一个数字出现次数 >= 3，去掉这个刻子后看剩下的能和牌
+	//到这里要么雀头已经确定了 要么第一个数字能作为雀头 
+	//不能是雀头那么只可能是核子或者顺子 具体依据curNum数量来判断
 	if (curNum >= 3)
 	{
 		vector<int> tmp(cards.begin() + 3, cards.end());
@@ -58,6 +62,8 @@ bool EqualProcess(vector<int>& cards)
 		}
 	}
     // 如果存在顺子，移除顺子后剩下的能和牌
+	//到这里要么雀头已经确定 要么第一个数字只能是顺子 因为curNum <= 1
+	//找到和他能组成的顺子位置
 	int idx1 = SearchIdx(cards, cards[0] + 1);
 	int idx2 = SearchIdx(cards, cards[0] + 2);
 	if (idx1 != -1 && idx2 != -1)
@@ -73,17 +79,19 @@ bool EqualProcess(vector<int>& cards)
 	return false;
 }
 
+//启示:对于尝试想法的题目 最简单的编码形式就是 递归 搞定前面一段 然后递归重复后面一段
 void EqualGame(const vector<int>& cards)
 {
+	//从1~9尝试加入每种数字是否可以和牌
 	for (int i = 0; i < 9; ++i)
 	{
-    vector<int> tmp = cards;
-    tmp.back() = i + 1;
-    sort(tmp.begin(), tmp.end());
-	if (EqualProcess(tmp))
-    {
-		printf("%d ", i + 1);
-	}
+		vector<int> tmp = cards;
+		tmp.back() = i + 1;
+		sort(tmp.begin(), tmp.end());
+		if (EqualProcess(tmp))
+		{
+			printf("%d ", i + 1);
+		}
 	}
 	printf("\n");
 }
