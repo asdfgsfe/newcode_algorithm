@@ -26,4 +26,31 @@ int find(Node *root, int maxDep) {
     return maxDep;
 }
 
-//2种方法 层序和前序遍历
+//2种方法 层序和前序遍历 
+//那种序都可以 不仅仅是前序
+void dfsFind(Node *node, int dep, int counter[]) {
+	if (!node)
+	{
+		return;
+	}
+    counter[dep]++;
+    for(int i = 0; i < node->sons.size(); i++) {
+        dfsFind(node->sons[i], dep + 1, counter);
+    }
+}
+
+ 
+int find(Node *root, int maxDep) {
+    int depCounter[100000];
+	::memset(depCounter, 0, sizeof depCounter); // bzero(depCOunter, sizeof depCOunter);
+    dfsFind(root, 0, depCounter);
+    int max = 0;
+	int minLevel = 0;
+    for (int i = 1; i <= maxDep; i++) {
+        if (depCounter[i] > max) {
+            max = depCounter[i];
+            minLevel = i;
+        }
+    }
+    return minLevel;
+}

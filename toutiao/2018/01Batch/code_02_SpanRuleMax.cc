@@ -38,3 +38,27 @@
 
 Êä³öÀý×Ó1:
 36
+
+int MaxValInRuleSpan(const vector<int>& nums)
+{
+	if (nums.empty())
+	{
+		return 0;
+	}
+	int maxVal = 0x80000000;
+	vector<int> sums(nums.size());
+	stack<int> incrId;
+	for (int i = 0; i < nums.size(); ++i)
+	{
+		sums[i] = i > 0 ? sums[i - 1] + nums[i] : nums[i];
+		while (!incrId.empty() && nums[i] <= nums[incrId.top()])
+		{
+			int cur = incrId.top();
+			incrId.pop();
+			int sum = incrId.empty() ? sums[i - 1] : sums[i - 1] - nums[incrId.top()];
+			maxVal = std::max(maxVal, nums[cur] * sum);
+		}
+		incrId.push(i);
+	}
+	return maxVal;
+}

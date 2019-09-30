@@ -124,11 +124,11 @@ int main()
         task.id = i;
         pmtasks[task.pm - 1].push_back(task);
     }
-    for (size_t i = 0; i < pmtasks.size(); i++)
+    for (size_t i = 0; i < pmtasks.size(); i++) //遍历pm
     {
         auto& tasks = pmtasks[i];
         if (tasks.size() == 0) continue;
-        sort(tasks.begin(), tasks.end(), [](const Task& t1, const Task& t2)
+        sort(tasks.begin(), tasks.end(), [](const Task& t1, const Task& t2); //对同一个pm的idea排序
         {
             if (t1.pri == t2.pri)
             {
@@ -141,7 +141,7 @@ int main()
             else return t1.pri > t2.pri;
         });
     }
-    map<int, int> result;
+    map<int, int> result; //记录项目的id和完成时间
     vector<Programer> pros(m);
     for (int i = pros.size() / 2; i >= 0; --i)
 	{

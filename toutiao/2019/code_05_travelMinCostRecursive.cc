@@ -11,6 +11,7 @@ int TravelProcess(const vector<vector<int>>& cities, int s, vector<bool>& visite
   visited[s] = true;
   path.emplace_back(s);
   int cost = 0x7fffffff;
+  //直接利用visited全部是true判断 并且将最开始的位置当参数传入 来计算回去到最开始节点的花费
   for (int c = 0; c < cities.size() && path.size() != cities.size(); ++c)
   {
     if (!visited[c])
@@ -24,6 +25,7 @@ int TravelProcess(const vector<vector<int>>& cities, int s, vector<bool>& visite
   return cost;
 }
 
+//这里利用path判断递归的结束可以省略掉 利用visited全部为true判断递归的结束就行
 int TravelMinCost(const vector<vector<int>>& cities)
 {
   if (cities.empty() || cities[0].empty())

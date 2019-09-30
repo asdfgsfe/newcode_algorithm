@@ -4,6 +4,7 @@
 
 using std::vector;
 
+//在编码推递归计算公式的时候 一定要带上数组的下标 不然状态没法转移
 int MinEnergy(const vector<int> h)
 {
     if (h.empty() || h.size() == 1)

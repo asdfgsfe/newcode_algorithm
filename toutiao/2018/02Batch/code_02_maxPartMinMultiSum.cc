@@ -4,7 +4,9 @@
 
 using std::vector;
 
-//o(n*n) 掌握这种遍历子数组的方法 以i结尾的子数组
+//o(n*n) 掌握这种遍历子数组的方法 以i结尾的子数组 
+//其实就是dp的思想o(n * n) 以每个位置结尾的情况怎么怎么样
+//通解 适合任何数据类型 正数 负数的情况
 int MaxPartMinMultiSum(vector<int>& numbers)
 {
 	if (numbers.empty())
@@ -27,7 +29,7 @@ int MaxPartMinMultiSum(vector<int>& numbers)
 }
 
 //单调栈 左边比他小的右边比他小的
-//暴力解法是 以每个位置为最小
+//暴力解法是 以每个位置为最小向两边扩
 int MaxPartMinMultiSum2(const vector<int>& numbers)
 {
 	if (numbers.empty())
@@ -52,13 +54,14 @@ int MaxPartMinMultiSum2(const vector<int>& numbers)
 			maxVal = std::max(maxVal, curSum * curNum);
 		}
 		incrIndexs.push(i);
-
 	}
 	return maxVal;
 }
 
 //将域处理数组部分 降到计算单调栈里面
 //这种边遍历 边求结果的方法很好
+//由于数组中的值全是正数 所以累加和一定是正数 而且只要累加就在变大 所以乘积最大的瓶颈在于这个最小值的选取
+//把每个位置当做最小值去尝试 找到左边离他最近比他小的 右边离他最近比他小的 这段区间就能利用单调栈
 int MaxPartMinMultiSum2(const vector<int>& numbers)
 {
 	if (numbers.empty())
@@ -80,7 +83,6 @@ int MaxPartMinMultiSum2(const vector<int>& numbers)
 			maxVal = std::max(maxVal, curSum * curNum);
 		}
 		incrIndexs.push(i);
-
 	}
 	return maxVal;
 }

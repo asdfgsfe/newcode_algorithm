@@ -1,5 +1,7 @@
 
 //掌握这种利用位操作来记录中间状态的dp方法 就相当于递归中的path被位操作给代替了
+//这种做法不仅仅记录了完整的尝试完整过程 而只用visited只能知道何时结束 但是完整过程没法复现
+//递归转动态规划 dp一定要能完整的体现出递归的全部过程
 int getAns(vector<vector<int>> &nums){
     const int MAX = 0x0fffffff;
     int n = nums.size();
@@ -17,15 +19,19 @@ int getAns(vector<vector<int>> &nums){
 			{ //如果已经访问过
                 for(int k=0;k<n;k++)
 				{
-                    if( (i & (1 << k) ) == 0)
+                    //这个城市还没有去过
+					if( (i & (1 << k) ) == 0)
 					{ 
                         //没有访问过k，且从这里到k的距离小于原来的距离，则更新
+						//从j出发到k
+						//dp[i][j]表示经过了i的过程到j结尾 此刻要从j走到k去
                         dp[i | (1 << k)][k] = min(dp[i | (1 << k)][k],dp[i][j] + nums[j][k]);
                     }
                 }
             }
         }
     }
+	//上面的dp为记录回到原点的消费 从这里开始加进去回到原点的消费
     int res = MAX;
     for(int i=1;i<n;i++){
         res = min(res,dp[stateNum-1][i] + nums[i][0]);
