@@ -7,6 +7,7 @@
 using std::map;
 using std::string;
 using std::vector;
+//其实是dfs的思想 暴力遍历
 const vector<std::pair<int, int>> direc = { { 0,1 },{ 0,-1 },{ 1,0 },{ -1,0 } };
 int PushProcess(const vector<string>& mapping, 
 				vector<vector<vector<vector<bool>>>>& visited, 

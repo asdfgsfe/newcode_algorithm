@@ -70,7 +70,7 @@ void IsEqual(const vector<vector<long long>>& infos)
 //一道数学题 有2个限制条件
 //x1, x2, x3均小于等于n/3 因为总共n分 最后要是相等 必然每个人得n/3分 所以到目前为止每个人最多能拿n/3分
 //剩余n-k分 设给x1补s1分 x2补s2分 x3补s3分 则必然s1 + s2 + s3 == n - k
-//初始条件 |x1 - x2| = d1 |x2 - x3| = d2 x1 + x2 + x3 = n - k解方程出来就行
+//初始条件 |x1 - x2| = d1 |x2 - x3| = d2 x1 + x2 + x3 = k解方程出来就行
 int main(void)
 {
     int t;

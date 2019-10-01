@@ -24,6 +24,8 @@ int SwapProcess(const vector<int>& idxs, int i, int j)
 //idxs[j] - idxs[i] - 1表示单纯的把i位置字符移动到j-1处的步数
 //j - i - 1 表示从i~j之间还有这些相同字符 如果连接一起了 这些位置就没有必要在移动 所以减去
 //f(i, j)表示以j结尾的情况下 把i~j范围的所有字符移动到一起的步数
+//不能分析一某个位置为中心从两边移动 因为这样过程可能会重复 但是以每个位置结尾一定不会重复
+//就是o(n*n)的遍历这个数组把每一段都移动到一起 看看超不超m 有个优化的地方就是先经可能搞i～j之间距离最大的 能减少计算
 int LonggestSameChar(const string& str, int m)
 {
 	if (str.empty())
@@ -42,6 +44,7 @@ int LonggestSameChar(const string& str, int m)
         {
             continue;
         }
+        //掌握这种在一位数组中构造虚拟以j结尾 成为2维dp问题的想法
 		for (int i = 0; i < idxs.size(); ++i)
 		{
 			for (int j = i; j < idxs.size(); ++j)

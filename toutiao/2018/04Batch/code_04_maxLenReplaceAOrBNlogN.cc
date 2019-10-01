@@ -28,6 +28,7 @@ bool IsDoneReplace(const vector<int>& aSums, int step, int m, int n)
  //两种解法
  //1.二分答案的思想nlog(n)
  //2.o(n*n) 暴力的以每个位置去替换 最后选出最大的
+ //解法3 统计出a出现的位置 或者b出现的位置 对位置之间的差 位置区间段组成一个结构 按照区间从小到大排序 然后从前往后替换 就可以搞出答案
 int main(void)
 {
 	int n;

@@ -30,6 +30,7 @@
 25         result = real_sum;
 26       }
 27     }
+        base_sum = real_sum; //ÕâÀï±ØĞëÌæ»»
 28   }
 29   return result;
 30 }

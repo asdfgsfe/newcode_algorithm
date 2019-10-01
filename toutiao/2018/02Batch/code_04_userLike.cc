@@ -130,6 +130,7 @@ void UserLikeVal(vector<vector<int>>& reqs, vector<int> like)
 	for (const auto& req : reqs)
 	{
 		assert(req.size() == 3);
+        //查喜好值位req[2]的这段区间
 		vector<int> lr = CurLikeUsers(usersLike, req[2]);
     std::cout << "lr=" << lr[0] << " " << lr[1] << std::endl;
 		if (lr.empty())
@@ -137,10 +138,11 @@ void UserLikeVal(vector<vector<int>>& reqs, vector<int> like)
       std::cout << "F1" << std::endl;
 			continue;
 		}
-		
+	//在查完喜好值的这段区间 找用户的id的区间 然后做减法就是答案
     int lIdx = LikeUserNum(usersLike, lr[0], lr[1], req[0] - 1);
     int rIdx = LikeUserNum(usersLike, lr[0], lr[1], req[1] - 1);
     
+    //按照找完的关系划分区间
     int luserId = usersLike[lr[0]].userId;
     int ruserId = usersLike[lr[1]].userId;
     if (luserId <= req[0] - 1 && ruserId >= req[0] - 1)

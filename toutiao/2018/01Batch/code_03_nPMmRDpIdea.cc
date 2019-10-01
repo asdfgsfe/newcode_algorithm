@@ -47,7 +47,7 @@ struct Task
     int dur;
 };
  
-int proid = 1;
+int proid = 1; //全局的时间
 struct Programer
 {
     Programer()
