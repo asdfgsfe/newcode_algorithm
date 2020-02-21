@@ -25,6 +25,7 @@ void MaxPoints(vector<Point>& points)
 					return lhs.y != rhs.y ? lhs.y > rhs.y : lhs.x < rhs.x;
               });
     int leftX = 0x80000000;
+    //xÏòÓÒ±ßÒÆ¶¯Ñ¡Ôñ
     for (const auto& point : points)
     {
         if (point.x > leftX)

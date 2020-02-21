@@ -5,7 +5,7 @@
 int getAns(vector<vector<int>> &nums){
     const int MAX = 0x0fffffff;
     int n = nums.size();
-    int stateNum = 1 << n;
+    int stateNum = 1 << n; //2的n次方
     // dp[i][j]中的i是一个二进制形式的数，表示经过城市的集合，如0111表示经过了城市0,1,2
     // dp[i][j]表示经过了i中的城市，并且以j结尾的路径长度
     vector<vector<int> > dp(stateNum,vector<int>(n,MAX));

@@ -45,6 +45,7 @@ int LonggestSameChar(const string& str, int m)
             continue;
         }
         //掌握这种在一位数组中构造虚拟以j结尾 成为2维dp问题的想法
+        //以i为开始 j为结束将将字符交换到一起的代价
 		for (int i = 0; i < idxs.size(); ++i)
 		{
 			for (int j = i; j < idxs.size(); ++j)

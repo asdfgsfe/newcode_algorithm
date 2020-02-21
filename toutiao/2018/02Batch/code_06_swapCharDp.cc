@@ -25,7 +25,7 @@ int LonggestSameChar(const string& str, int m)
 		{
 			for (int j = dp[0].size() - 1; j >= i; --j)
 			{
-				dp[i][j] = dp[i + 1][j - 1] + (idxs[j] - idxs[i] - 1) + (j - i - 1);
+				dp[i][j] = dp[i + 1][j - 1] + (idxs[j] - idxs[i] - 1) - (j - i - 1);
 				longgest = dp[i][j] <= m ? std::max(longgest, j - i + 1) : longgest;
 			}
 		}

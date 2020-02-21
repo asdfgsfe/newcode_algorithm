@@ -5,6 +5,7 @@
 #include <iostream>
 using std::vector;
 
+//以每个位置开头的情况下怎么样
 int AddProcess(const vector<int>& nums, int i)
 {
 	if (i == nums.size())
@@ -14,12 +15,13 @@ int AddProcess(const vector<int>& nums, int i)
     int addNum = 0x7fffffff;
 	if (i + 1 < nums.size() && nums[i + 1] - nums[i] <= 10)
 	{
-		addNum = std::min(addNum, 1 + AddProcess(nums, i + 2));
+		addNum = std::min(addNum, 1 + AddProcess(nums, i + 2));//前两个能组成 我仅仅添加一个
 	}
-	if (i + 2 < nums.size() && nums[i + 1] - nums[i] <= 10 && nums[i + 2] - nums[i + 1] <= 10)
+	if (i + 2 < nums.size() && nums[i + 1] - nums[i] <= 10 && nums[i + 2] - nums[i + 1] <= 10) //3个能组成 我不添加
 	{
-		addNum = std::min(addNum, AddProcess(nums, i + 3));
+		addNum = std::min(addNum, AddProcess(nums, i + 3)); //仅仅一个 我需要添加2个
 	}
+    //选择3种情况下的最小值
 	addNum = std::min(addNum, 2 + AddProcess(nums, i + 1));
 	return addNum;
 }
